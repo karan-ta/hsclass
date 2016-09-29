@@ -6,6 +6,7 @@ module Main where
 --    and it is easier to do as well..
 -- 2) writing sub-functions :
 
+
 -- See this example ;
 -- I have to write a function that give a number N
 --   gives me a list that has N "Hello" strings.
