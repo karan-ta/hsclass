@@ -24,11 +24,68 @@ sayNHello n = sayNHello' 0 n []
       then sayNHello' (i + 1) n ("Hello" : resultSoFar)
       else resultSoFar -- otherwise we are done..
 
+--ghci >1234 `div` 10
+--123
+--ghci >1234 `div` 100
+--12
+--ghci >1234 `div` 1000
+--1
+--ghci >1234 `div` 10000
+--0
+myReverse :: [Integer] -> [Integer]
+myReverse []  = []
+myReverse xs = myReverseAcc xs []
+  where 
+    myReverseAcc (x:xs) acc = myReverseAcc xs (x:acc)
+    myReverseAcc [] acc = acc
+
+doubleAlts :: [Integer] -> [Integer]
+doubleAlts [] = []
+doubleAlts list  = doubleAltsCounter list 1
+  where 
+      doubleAltsCounter (x:xs) acc
+        | acc `rem` 2 == 0 = x*2:doubleAltsCounter xs (acc+1)
+        | otherwise = x:doubleAltsCounter xs (acc+1)
+      doubleAltsCounter [] _ = []
+
+
+
+numdigits :: Integer -> Int -> Int
+numdigits cardNumber acc 
+  | cardNumber `div` (10 ^ acc) == 0 = acc
+  | otherwise = numdigits cardNumber (acc+1)
+
+
+--ghci >1234 `rem` 1 0000  `div` 1000
+--1
+--ghci >1234 `rem` 1000 `div` 100
+--2
+--ghci >1234 `rem` 100 `div` 10
+--3
+--ghci >1234 `rem` 10 `div` 1
+--4
 toDigits :: Integer -> [Integer]
-toDigits n = undefined
+toDigits cardNumber
+  | cardNumber == 0 = []
+  | cardNumber < 0 = []
+
+toDigits cardNumber = formula cardNumber 1 []
+  where 
+    formula cardNumber place acc 
+      | place <= ndigits = formula cardNumber (place+1) (cardNumber `rem` (10 ^ place) `div` (10 ^ (place-1)):acc)
+      | otherwise = acc
+        where ndigits = numdigits cardNumber 1
 
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev n = undefined
+toDigitsRev cardNumber
+  | cardNumber == 0 = []
+  | cardNumber < 0 = []
+toDigitsRev cardNumber = formula cardNumber ndigits []
+  where 
+    formula cardNumber place acc 
+      | place > 0 = formula cardNumber (place - 1) (cardNumber `rem` (10 ^ place) `div` (10 ^ (place-1)):acc)
+      | otherwise = acc
+    ndigits = numdigits cardNumber 1
 
 -- You need to map over every element of the list..
 -- But you can use recursion for it as well..
@@ -37,26 +94,28 @@ toDigitsRev n = undefined
 -- and use DL.map..
 -- but remember it is all about writing Recursion at this point..
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther list = undefined
+doubleEveryOther =  myReverse . doubleAlts . myReverse
 
 sumDigits :: [Integer] -> Integer
-sumDigits list = undefined
+sumDigits [] = 0
+sumDigits (x:xs) = x + sumDigits xs
 
 validate :: Integer -> Bool
-validate n = undefined
+validate cardNumber 
+  | mychecksum `rem` 10 == 0 = True
+  | otherwise = False 
+      where mychecksum = sumDigits $ doubleEveryOther $ toDigits $ cardNumber
 
 main :: IO ()
 main = do
-  putStrLn "Hello world"
-  -- show takes a type and convert to string
-  putStrLn $ show 1
-  putStrLn $ show [1 , 2 , 3]
-  putStrLn $ show True
-  -- Exercise :
-  -- call all above functions here..
+  let cardNumber = 4622715351164531
+  let thedigits = toDigits cardNumber
+  putStrLn $ show $ thedigits
+  let thedigitsrev = toDigitsRev cardNumber
 
-
--- syntax :
-ifSyntax num = if num > 0
-               then num - 1
-               else num + 1
+  putStrLn $ show $ thedigitsrev
+  putStrLn $ show $ doubleEveryOther thedigits
+  putStrLn $ show $ sumDigits $ doubleEveryOther $ toDigits $ cardNumber
+  putStrLn $ show $ validate cardNumber
+ 
+ 
