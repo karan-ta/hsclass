@@ -39,6 +39,7 @@ myReverse xs = myReverseAcc xs []
     myReverseAcc (x:xs) acc = myReverseAcc xs (x:acc)
     myReverseAcc [] acc = acc
 
+-- this function doubles alternate elements of a list
 doubleAlts :: [Integer] -> [Integer]
 doubleAlts [] = []
 doubleAlts list  = doubleAltsCounter list 1
@@ -64,10 +65,7 @@ numdigits cardNumber acc
 --3
 --ghci >1234 `rem` 10 `div` 1
 --4
-toDigits :: Integer -> [Integer]
-toDigits cardNumber
-  | cardNumber == 0 = []
-  | cardNumber < 0 = []
+
 
 toDigits cardNumber = formula cardNumber 1 []
   where 
@@ -76,10 +74,6 @@ toDigits cardNumber = formula cardNumber 1 []
       | otherwise = acc
         where ndigits = numdigits cardNumber 1
 
-toDigitsRev :: Integer -> [Integer]
-toDigitsRev cardNumber
-  | cardNumber == 0 = []
-  | cardNumber < 0 = []
 toDigitsRev cardNumber = formula cardNumber ndigits []
   where 
     formula cardNumber place acc 
