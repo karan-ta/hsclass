@@ -1,0 +1,83 @@
+ashishnotes.hs
+types are very cheap
+-- this file is just notes and will not run.
+
+
+type Numthread = Int
+type MaxDepthTo  = Int
+-- compiler will not give error 
+CrawlConfig 1 0 ; CrawlConfig 0 1
+--compiler will give error below if you switch arguments
+CrawlConfig	(Numthread 1) (MaxDepthTo 1)
+
+--LHS user is type constructor
+--RHS user is data constructor
+
+--values of user = values (name) * values (age)
+-- product types / sum types 
+-- below is product types
+data User = User
+			{ name :: String -- name :: User -> String
+			, age :: Int
+			}
+-- union types, sum types , or types ,
+-- enum types, value is run time ,
+-- type is compile time, day 
+-- Day is monday or tuesday
+
+data Day = Monday {message::String}	| Tuesday | Wednesday | Thursday		
+
+newtype Msg = Msg String
+-- no performance penalty of boxing and unboxing , cant use sum types
+newtype Numthreads = Numthreads Int
+
+foo :: Numthreads -> MaxDepth -> Int
+foo 1 2 -> with type
+foo (Numthreads 1) MaxDepth 0 with new type 
+--Sum types not possible with newtype
+--sum types possible with Data
+--type give readability, newtype give compiler check
+
+
+data List a = List a (List a) | Empty
+--a can be Int , String 
+--List a is constructed by List a
+data ListTypeConstructor a = ListDataConstructor a 
+
+data ListTC a = ListDC a (ListTC a) | Empty
+				Empty
+				ListDC 1 Empty
+				ListDC 1 (ListDC 2 Empty)
+
+fooUsername :: User -> String
+fooUsername (User name age) = name
+fooUsername user = name user
+fooUsername user = age user
+
+--in sum types- use case
+fooDayToInt :: Day -> Int
+fooDayToInt day = 
+	case day of
+		Monday -> 0
+		Tuesday -> 1
+		Wednesday -> 2
+		Thursday -> 3
+		Friday -> 4
+
+-- think in terms of recursion and in terms of types
+
+-- just by looking at type - if maybe is present 
+	--we know that function is failinghg
+
+-- stack repl - multi line code.
+
+hoogle
+hackage
+
+awesome haskell
+eric mejer
+
+
+
+
+
