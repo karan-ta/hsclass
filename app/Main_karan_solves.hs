@@ -65,9 +65,6 @@ numdigits cardNumber acc
 --ghci >1234 `rem` 10 `div` 1
 --4
 toDigits :: Integer -> [Integer]
-toDigits cardNumber
-  | cardNumber == 0 = []
-  | cardNumber < 0 = []
 
 toDigits cardNumber = formula cardNumber 1 []
   where 
@@ -77,9 +74,6 @@ toDigits cardNumber = formula cardNumber 1 []
         where ndigits = numdigits cardNumber 1
 
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev cardNumber
-  | cardNumber == 0 = []
-  | cardNumber < 0 = []
 toDigitsRev cardNumber = formula cardNumber ndigits []
   where 
     formula cardNumber place acc 
@@ -101,10 +95,16 @@ sumDigits [] = 0
 sumDigits (x:xs) = x + sumDigits xs
 
 validate :: Integer -> Bool
+<<<<<<< HEAD
 validate cardNumber 
   | mychecksum `rem` 10 == 0 = True
   | otherwise = False 
       where mychecksum = sumDigits $ doubleEveryOther $ toDigits $ cardNumber
+=======
+validate cardNumber =
+   let mychecksum = sumDigits $ doubleEveryOther $ toDigits $ cardNumber
+   in mychecksum `rem` 10 == 0
+>>>>>>> upstream/master
 
 main :: IO ()
 main = do
