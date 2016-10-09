@@ -20,5 +20,4 @@ putStrLn $ show $ Just (+1) <*> Just 2
 putStrLn $ show $ liftA2 (*) (Just 5) (Just 3)
 --(*) <$> Just 5 <*> Just 3
 putStrLn $ show $ Just 10 >>= half
-
 putStrLn $ show $ runWriter $ myhalf 8 >>= myhalf >>= myhalf

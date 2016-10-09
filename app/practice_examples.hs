@@ -65,17 +65,25 @@ printdivargs' (NumeratorV' a) (Denominator' b) =
 
 data DivArgs = MakeArgs {numerator :: Float,denominator :: Float} deriving Show
 wrongdiv'' :: DivArgs -> Float
-wrongdiv'' (MakeArgs {numerator=numerator,denominator=denominator}) =
+wrongdiv'' (MakeArgs numerator denominator) =
 	numerator / denominator 
 
 
 
 printdiv'' :: DivArgs -> String
-printdiv'' (MakeArgs {numerator=a,denominator=b}) = 
+printdiv'' (MakeArgs a b) = 
 	"Numerator is " ++
 	 show a ++
 	" Denominator is  " ++
 	 show b		
+
+	 
+
+-- Recursive types
+--ListType is Type constructor
+--C is value constructor
+
+data ListType a = C a (ListType a)| Empty deriving Show
 
 half :: Int -> Maybe Int
 half x = if even x then Just (x `div` 2) else Nothing
@@ -100,6 +108,7 @@ main = do
 	putStrLn $ show $ printdivargs 1 2 -- oops mistake
 	putStrLn $ show $ printdivargs' (NumeratorV' 2) (Denominator' 1)
 	putStrLn $ show $ printdiv'' (MakeArgs {numerator = 2,denominator = 1})
+	putStrLn $ show $ C 1 (C 2 (C 3 Empty)) 
 	putStrLn $ show $ (+1) <$> (+2) $ 10
 	putStrLn $ show $ Just (+2) <*> Just 3
 	putStrLn $ show $ [(*2),(+3)] <*> [1,2,3,4]

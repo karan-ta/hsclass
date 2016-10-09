@@ -95,16 +95,10 @@ sumDigits [] = 0
 sumDigits (x:xs) = x + sumDigits xs
 
 validate :: Integer -> Bool
-<<<<<<< HEAD
-validate cardNumber 
-  | mychecksum `rem` 10 == 0 = True
-  | otherwise = False 
-      where mychecksum = sumDigits $ doubleEveryOther $ toDigits $ cardNumber
-=======
 validate cardNumber =
    let mychecksum = sumDigits $ doubleEveryOther $ toDigits $ cardNumber
    in mychecksum `rem` 10 == 0
->>>>>>> upstream/master
+
 
 main :: IO ()
 main = do

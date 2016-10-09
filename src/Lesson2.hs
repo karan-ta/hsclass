@@ -30,7 +30,7 @@ v = foo 0 1
 data User = User
             { name :: String -- name :: User -> String
             , age  :: Int
-            }
+            } deriving Show
 
 -- note: this `{ .. }` is also called Record Syntax.
 
