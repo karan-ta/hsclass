@@ -1,4 +1,5 @@
 --ahaexamples_eithertype.hs
+--can you write a type that fails and also gives a failure message ??
 data DivArgs = MakeArgs {
     numerator :: Float,
     denominator ::Float
