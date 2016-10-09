@@ -30,11 +30,11 @@ printdivargs' (NumeratorV' a) (Denominator' b) =
 
 data DivArgs = MakeArgs {numerator :: Float,denominator :: Float} deriving Show
 wrongdiv'' :: DivArgs -> Float
-wrongdiv'' (MakeArgs {numerator=numerator,denominator=denominator}) =
+wrongdiv'' (MakeArgs numerator denominator) =
 	numerator / denominator 
 
 printdiv'' :: DivArgs -> String
-printdiv'' (MakeArgs {numerator=a,denominator=b}) = 
+printdiv'' (MakeArgs a b) = 
 	"Numerator is " ++
 	 show a ++
 	" Denominator is  " ++
